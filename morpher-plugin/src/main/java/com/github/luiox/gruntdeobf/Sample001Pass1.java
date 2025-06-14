@@ -7,6 +7,7 @@ import com.github.luiox.morpher.transformer.MethodPass;
 import com.github.luiox.morpher.transformer.PassContext;
 import com.github.luiox.morpher.transformer.PassInfo;
 import org.jetbrains.annotations.NotNull;
+import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 @PassInfo(name = "Sample001Pass1", description = "处理a^a的pass")
@@ -15,14 +16,25 @@ public class Sample001Pass1 extends MethodPass {
     static PatternMatcher matcher = new PatternMatcher();
 
     static {
-        MatchRule rule = new MatchRule()
+        // load(I) - dup - ixor => iconst_0
+        MatchRule rule1 = new MatchRule()
                 .addStep(StepUtil.loadInt())
                 .addStep(StepUtil.dup())
                 .addStep(StepUtil.ixor())
                 .setStrategy(ctx -> {
                     ctx.builder.iconst_0();
                 });
-        matcher.addRule(rule);
+        matcher.addRule(rule1);
+
+        // iconst_0 - ifeq => goto
+        MatchRule rule2 = new MatchRule()
+                .addStep(StepUtil.iconst_0())
+                .addStep(StepUtil.ifeq())
+                .setStrategy(ctx -> {
+                   var ifeqNode = (JumpInsnNode)ctx.original.get(ctx.startIdx + 1);
+                   ctx.builder.gotoo(ifeqNode.label);
+                });
+        matcher.addRule(rule2);
     }
 
     @Override
@@ -30,6 +42,12 @@ public class Sample001Pass1 extends MethodPass {
         if(methodNode.instructions == null || methodNode.instructions.size() == 0){
             return;
         }
-        methodNode.instructions = matcher.apply(methodNode.instructions);
+//        methodNode.instructions = matcher.apply(methodNode.instructions);
+        int startSize, endSize;
+        do{
+            startSize = methodNode.instructions.size();
+            methodNode.instructions = matcher.apply(methodNode.instructions);
+            endSize = methodNode.instructions.size();
+        }while (startSize != endSize);
     }
 }

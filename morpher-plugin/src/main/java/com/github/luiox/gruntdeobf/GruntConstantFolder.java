@@ -6,11 +6,13 @@ import com.github.luiox.morpher.asm.matcher.PatternMatcher;
 import com.github.luiox.morpher.asm.matcher.StepUtil;
 import com.github.luiox.morpher.transformer.MethodPass;
 import com.github.luiox.morpher.transformer.PassContext;
-import com.github.luiox.morpher.util.LogUtil;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.tree.MethodNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GruntConstantFolder extends MethodPass {
+    private static final Logger logger = LoggerFactory.getLogger(GruntConstantFolder.class);
 
     static PatternMatcher matcher = new PatternMatcher();
 
@@ -70,12 +72,10 @@ public class GruntConstantFolder extends MethodPass {
         int endSize;
         do {
             startSize = methodNode.instructions.size();
-
             methodNode.instructions = matcher.apply(methodNode.instructions);
-
             endSize = methodNode.instructions.size();
 
-            LogUtil.info("Reduced method size from " + startSize + " to " + endSize);
+//            logger.info("Reduced method size from " + startSize + " to " + endSize);
         } while (startSize != endSize);
     }
 }

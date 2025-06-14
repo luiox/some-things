@@ -14,6 +14,8 @@ public class Main {
 
         SimplePassRunner runner = new SimplePassRunner();
         runner.addPass(new Sample001Pass1());
+        runner.addPass(new DeadCodeRemover());
+        runner.addPass(new Sample001Pass2());
         runner.transform(context);
 
         context.jarCaches.write(new SimpleJarWriter("output.jar"));
