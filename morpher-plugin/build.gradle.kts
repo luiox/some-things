@@ -14,7 +14,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
-    implementation("com.github.luiox:morpher-api:v1.2")
+    implementation("com.github.luiox:morpher-api:v1.3")
 }
 
 tasks.test {
