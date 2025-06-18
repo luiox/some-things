@@ -1,5 +1,6 @@
 package com.github.luiox.gruntdeobf;
 
+import com.github.luiox.morpher.transformer.IPassContext;
 import com.github.luiox.morpher.transformer.MethodPass;
 import com.github.luiox.morpher.transformer.PassContext;
 import com.github.luiox.morpher.transformer.PassInfo;
@@ -14,7 +15,7 @@ import org.objectweb.asm.tree.MethodNode;
 public class Sample001Pass2 extends MethodPass {
 
     @Override
-    public void run(@NotNull MethodNode methodNode, @NotNull PassContext context) {
+    public void run(@NotNull MethodNode methodNode, @NotNull IPassContext context) {
         if (methodNode.instructions == null || methodNode.instructions.size() == 0) {
             return;
         }

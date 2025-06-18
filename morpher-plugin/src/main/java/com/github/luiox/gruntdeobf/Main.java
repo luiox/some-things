@@ -16,6 +16,8 @@ public class Main {
         runner.addPass(new Sample001Pass1());
         runner.addPass(new DeadCodeRemover());
         runner.addPass(new Sample001Pass2());
+        runner.addPass(new UnusedLabelRemover());
+        runner.addPass(new Sample001Pass3());
         runner.transform(context);
 
         context.jarCaches.write(new SimpleJarWriter("output.jar"));

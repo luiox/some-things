@@ -4,8 +4,8 @@ import com.github.luiox.morpher.asm.insn.InsnUtil;
 import com.github.luiox.morpher.asm.matcher.MatchRule;
 import com.github.luiox.morpher.asm.matcher.PatternMatcher;
 import com.github.luiox.morpher.asm.matcher.StepUtil;
+import com.github.luiox.morpher.transformer.IPassContext;
 import com.github.luiox.morpher.transformer.MethodPass;
-import com.github.luiox.morpher.transformer.PassContext;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.tree.MethodNode;
 import org.slf4j.Logger;
@@ -63,7 +63,7 @@ public class GruntConstantFolder extends MethodPass {
     }
 
     @Override
-    public void run(@NotNull MethodNode methodNode, @NotNull PassContext context) {
+    public void run(@NotNull MethodNode methodNode, @NotNull IPassContext context) {
         if (methodNode.instructions == null || methodNode.instructions.size() == 0) {
             return;
         }

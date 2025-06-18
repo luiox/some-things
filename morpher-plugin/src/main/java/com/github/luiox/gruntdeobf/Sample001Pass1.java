@@ -3,8 +3,8 @@ package com.github.luiox.gruntdeobf;
 import com.github.luiox.morpher.asm.matcher.MatchRule;
 import com.github.luiox.morpher.asm.matcher.PatternMatcher;
 import com.github.luiox.morpher.asm.matcher.StepUtil;
+import com.github.luiox.morpher.transformer.IPassContext;
 import com.github.luiox.morpher.transformer.MethodPass;
-import com.github.luiox.morpher.transformer.PassContext;
 import com.github.luiox.morpher.transformer.PassInfo;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.tree.JumpInsnNode;
@@ -38,7 +38,7 @@ public class Sample001Pass1 extends MethodPass {
     }
 
     @Override
-    public void run(@NotNull MethodNode methodNode, @NotNull PassContext passContext) {
+    public void run(@NotNull MethodNode methodNode, @NotNull IPassContext passContext) {
         if(methodNode.instructions == null || methodNode.instructions.size() == 0){
             return;
         }
