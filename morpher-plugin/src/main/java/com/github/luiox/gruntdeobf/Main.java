@@ -1,25 +1,26 @@
 package com.github.luiox.gruntdeobf;
 
-import com.github.luiox.morpher.jar.FullJarCaches;
-import com.github.luiox.morpher.jar.SimpleJarReader;
-import com.github.luiox.morpher.jar.SimpleJarWriter;
+import com.github.luiox.morpher.model.io.ResourceHelper;
 import com.github.luiox.morpher.transformer.PassContext;
-import com.github.luiox.morpher.transformer.SimplePassRunner;
+import com.github.luiox.morpher.transformer.PassRunner;
+import com.github.luiox.morpher.transformer.Phase;
+import com.github.luiox.morpher.transformer.Pipeline;
+import org.objectweb.asm.ClassWriter;
 
 public class Main {
     public static void main(String[] args) {
         PassContext context = new PassContext();
-        context.jarCaches = new FullJarCaches();
-        context.jarCaches.read(new SimpleJarReader("sample-001.jar"));
+        ResourceHelper.importFromJar(context.getContainer(), "sample-001.jar");
 
-        SimplePassRunner runner = new SimplePassRunner();
-        runner.addPass(new Sample001Pass1());
-        runner.addPass(new DeadCodeRemover());
-        runner.addPass(new Sample001Pass2());
-        runner.addPass(new UnusedLabelRemover());
-        runner.addPass(new Sample001Pass3());
-        runner.transform(context);
+        PassRunner runner = new PassRunner();
+        runner.add(Pipeline.of("test")
+                .add(Phase.of("test1", 0, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS)
+                        .add(new Sample001Pass1())
+                        .add(new DeadCodeRemover())
+                        .add(new Sample001Pass2())
+                )
+        ).transform(context);
 
-        context.jarCaches.write(new SimpleJarWriter("output.jar"));
+        ResourceHelper.exportToJar(context.getContainer(), "output.jar");
     }
 }
