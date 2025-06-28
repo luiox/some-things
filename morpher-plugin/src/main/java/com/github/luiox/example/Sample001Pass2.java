@@ -1,8 +1,7 @@
-package com.github.luiox.gruntdeobf;
+package com.github.luiox.example;
 
 import com.github.luiox.morpher.transformer.IPassContext;
 import com.github.luiox.morpher.transformer.MethodPass;
-import com.github.luiox.morpher.transformer.PassContext;
 import com.github.luiox.morpher.transformer.PassInfo;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.Opcodes;

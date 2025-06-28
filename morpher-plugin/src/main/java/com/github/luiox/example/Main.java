@@ -1,4 +1,4 @@
-package com.github.luiox.gruntdeobf;
+package com.github.luiox.example;
 
 import com.github.luiox.morpher.model.io.ResourceHelper;
 import com.github.luiox.morpher.transformer.PassContext;
@@ -18,6 +18,8 @@ public class Main {
                         .add(new Sample001Pass1())
                         .add(new DeadCodeRemover())
                         .add(new Sample001Pass2())
+                        .add(new UnusedLabelRemover())
+                        .add(new Sample001Pass3())
                 )
         ).transform(context);
 

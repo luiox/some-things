@@ -1,4 +1,4 @@
-package com.github.luiox.gruntdeobf;
+package com.github.luiox.example;
 
 import com.github.luiox.morpher.asm.insn.InsnUtil;
 import com.github.luiox.morpher.asm.matcher.MatchRule;
