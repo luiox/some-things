@@ -1,7 +1,21 @@
-# jvm-things-archieve
-archieve some things about jvm
+# some-things
 
-Sometimes, I want to download recaf or some other JVM-related tools, but I find there is no release. Therefore, I open a repository to store these contents.
+一些代码还有乱七八糟的东西，也许有用。
+
+
+
+## jvm 
 
 Recaf:[https://github.com/Col-E/Recaf](https://github.com/Col-E/Recaf)
+
+## code
+
+crc32-ieee 802.3的打表实现
+
+
+## script
+
+一些可能用的上的脚本
+
+charset_convert.py: 批量把一些文件转换到特定编码
 
